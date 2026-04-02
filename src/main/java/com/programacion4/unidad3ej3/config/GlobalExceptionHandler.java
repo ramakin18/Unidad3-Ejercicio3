@@ -1,5 +1,8 @@
 package com.programacion4.unidad3ej3.config;
 
+import com.programacion4.unidad3ej3.config.exceptions.ConflictException;
+import com.programacion4.unidad3ej3.config.exceptions.ResourceNotFoundException;
+import lombok.Getter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -9,7 +12,7 @@ import java.time.Instant;
 import java.util.List;
 
 import com.programacion4.unidad3ej3.config.exceptions.CustomException;
-
+@Getter
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -64,5 +67,26 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.internalServerError().body(response); 
+    }
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<BaseResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        return ResponseEntity.status(ex.getStatus()).body(
+                BaseResponse.builder()
+                        .message(ex.getMessage())
+                        .status(ex.getStatus().value()) // El .value() lo pasa de "NOT_FOUND" a 404
+                        .success(false)
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<BaseResponse> handleConflictException(ConflictException ex) {
+        return ResponseEntity.status(ex.getStatus()).body(
+                BaseResponse.builder()
+                        .message(ex.getMessage())
+                        .status(ex.getStatus().value()) // El .value() lo pasa de "CONFLICT" a 409
+                        .success(false)
+                        .build()
+        );
     }
 }

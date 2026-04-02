@@ -31,6 +31,61 @@ public class Producto {
 
     private Integer stock;
 
-    private boolean estaEliminado;
+    private boolean estaEliminado = false;
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public boolean isEstaEliminado() {
+        return estaEliminado;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public void setEstaEliminado(boolean estaEliminado) {
+        this.estaEliminado = estaEliminado;
+    }
 }
